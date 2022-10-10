@@ -27,13 +27,22 @@ router.get("/", async (req, res) => {
 });
 app.use("/auth", router);
 
-const start = async () => {
-  try {
-    await mongoose.connect(process.env.DB_URL);
-    app.listen(PORT, () => console.log(`server started on port ${PORT}`));
-  } catch (e) {
-    console.log(e);
-  }
-};
+// const start = async () => {
+//   try {
+//     await mongoose.connect(process.env.DB_URL);
+//     app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
-start();
+// start();
+
+mongoose
+  .connect(process.env.DB_URL)
+  .then(() => console.log("Connected to DB"))
+  .catch((error) => console.log(error));
+
+app.listen(PORT, (error) => {
+  error ? console.log(error) : console.log(`listening port ${PORT}`);
+});
